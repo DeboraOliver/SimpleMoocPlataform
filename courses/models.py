@@ -18,7 +18,8 @@ class Course(models.Model):
 	
 	name = models.CharField('Nome',max_length = 100)
 	slug = models.SlugField('Atalho')
-	description = models.TextField('Descrição', blank = True) #blank = não é obrigatório, mas o TextField permite descrições longas
+	description = models.TextField('Descrição Simples', blank = True) #blank = não é obrigatório, mas o TextField permite descrições longas
+	about = models.TextField('Sobre o Curso', blank= True)
 	start_date = models.DateField('Data de Início', null = True, blank = True) #null = no banco de dados esse campo temq ter algo msm que seja um campo vazio
 	#campo de imagem, caminho para a imagem
 	image = models.ImageField(upload_to='courses/images', verbose_name='Imagem', null = True, blank = True)  #não é um campo obrigatório
@@ -29,6 +30,10 @@ class Course(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	#@models.permalink
+	def get_absolute_url(self):
+		return f"/cursos/{self.slug}/"
 
 	class Meta: #interfere no django admin
 		verbose_name = 'Curso'

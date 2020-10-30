@@ -17,6 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('core.urls')),
@@ -24,4 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#quando eu estiver em ambiente debug aurlpattern recebe acrescimo chamando o arquivo estaticos
 #You should always use include() when you include other URL patterns. admin.site.urls is the only exception to this.
