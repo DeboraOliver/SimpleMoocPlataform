@@ -21,8 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('core.urls')),
-    path('', include('courses.urls')),
+    path('', include('core.urls', namespace= 'core')),
+    path('conta/', include('django.contrib.auth.urls')),
+    path('conta/', include('accounts.urls', namespace='accounts')),
+    path('', include('courses.urls', namespace= 'courses')),
     path('admin/', admin.site.urls),
 ]
 

@@ -30,6 +30,7 @@ def details(request, slug):
             context['is_valid'] = True
             #print(form.cleaned_data['message']) #faz a diferença para usarmos apenas dados validos
             #para acessar um dado dos fform não posso fazer forms.name tenho q fazer forms.cleaned_data['']
+            form.send_email(course) #chama a função q esta noform
             form = ContactCourse() #quero formulário limpo novamente
     else:
         form = ContactCourse()

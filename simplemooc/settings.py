@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'core.apps.CoreConfig',
+    'accounts.apps.AccountsConfig',
 	'courses.apps.CoursesConfig',
 ]
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'simplemooc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,3 +126,23 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'simplemooc', 'media')
 MEDIA_URL = '/media/' #A URL basica para arquivos estaticos do usuario
+
+#E-mails
+#EMAIL_BACKEND = 'django.core.mail.smtp.EmailBackend'
+#smtpé o padrão do django
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#vamos usar o  console para apenas printar no terminal p email
+DEFAULT_FROM_EMAIL = 'Dina <dina.contact.us@gmail.com>'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'x@gmail.com '
+EMAIL_HOST_PASSWORD = 'xxx!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+CONTACT_EMAIL = 'x@gmail.com'
+
+#Auth
+LOGIN_URL = '/entrar'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_URL = '/sair'

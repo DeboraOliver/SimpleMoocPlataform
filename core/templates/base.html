@@ -15,8 +15,9 @@
         <a class="pure-menu-heading" href="">SIMPLE MOOC</a>
         <ul>
             <li class="pure-menu-selected"><a href="{% url 'home' %}">Início</a></li>
-            <li><a href="{% url 'index' %}">Cursos</a></li>
-            <li><a href="{% url 'contact' %}">Contato</a></li>
+            <li><a href="{% url 'courses:index' %}">Cursos</a></li>
+            <li><a href="{% url 'accounts:login'%}">Entrar</a></li>
+            <li><a href="{% url 'core:contact' %}">Contato</a></li>
         </ul>
     </div>
 </div>
