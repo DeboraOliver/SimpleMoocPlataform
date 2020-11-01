@@ -145,4 +145,4 @@ CONTACT_EMAIL = 'x@gmail.com'
 #Auth
 LOGIN_URL = '/entrar'
 LOGIN_REDIRECT_URL = '/home'
-LOGOUT_URL = '/sair'
+LOGOUT_URL = '/home'

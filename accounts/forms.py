@@ -19,3 +19,20 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class EditAccountForm(forms.ModelForm):
+    #EVITE REPETIÇÕES
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        #vms filtarr todos os usuario com esse emailMENOS o usuário atual. Assim verificamos se existe um usuário com este email
+        queryset = User.obejcts.filter(
+            email=email).exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise forms.ValidationError('Já existe usuário com este E-mail')
+        return email
+
+    #gera um formulário baseadoem todos os campos q o modelo tem
+    class Meta:
+        model = User
+        #vms  agora listas os campos q podem ser alterados no model q o django dá
+        fields = ['username', 'email', 'first_name', 'last_name']
