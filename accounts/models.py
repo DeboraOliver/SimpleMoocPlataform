@@ -1,6 +1,7 @@
 import re
 from django.db import models
 from django.core import validators
+from django.conf import settings
 from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,UserManager)
 
 #AbstratcUser tras a logica de alterar senha e last login.
@@ -38,4 +39,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+
+class PasswordReset(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name = 'Usuário', on_delete = models.CASCADE,
+        #related_name='resets'
+    ) #relação de muitos para 1
+    key =models.CharField('Chave',max_length=100, unique=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    confirmed = models.BooleanField('Confirmado?', default=False, blank=True)
+
+    #indica se o link foi usado
+
+    def __str__(self):
+        return '{} em {}'.format(self.user, self.created_at)
+
+    class Meta:
+        verbose_name = 'Nova senha'
+        verbose_name_plural = 'Novas senhas'
+        ordering = ['-created_at']
 
