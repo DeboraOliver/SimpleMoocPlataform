@@ -146,3 +146,7 @@ CONTACT_EMAIL = 'x@gmail.com'
 LOGIN_URL = '/entrar'
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_URL = '/home'
+AUTH_USER_MODEL = 'accounts.User' #apartir disso o django sabe q o model é o nosso e não oq ele dá
+#o usuário não serámais o padrão do django
+#após isso (accounts.models.py e novo user) apague o banco de dados e todas as pastas migrations nos apps
+#https://stackoverflow.com/questions/26207022/custom-user-in-django-raises-valueerror
