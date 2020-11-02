@@ -134,11 +134,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #vamos usar o  console para apenas printar no terminal p email
 DEFAULT_FROM_EMAIL = 'Dina <dina.contact.us@gmail.com>'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'x@gmail.com '
-EMAIL_HOST_PASSWORD = 'xxx!'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'x@gmail.com '
+# EMAIL_HOST_PASSWORD = 'xxx!'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 CONTACT_EMAIL = 'x@gmail.com'
 
