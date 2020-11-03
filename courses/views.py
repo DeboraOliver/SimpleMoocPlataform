@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-
-from .models import Course
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import  login_required
+from .models import Course,  Enrollment
 from .forms import ContactCourse #o . indica q é nesta msm pasta
+from django.contrib import messages
 
 def index(request):
     courses = Course.objects.all()
@@ -38,3 +39,17 @@ def details(request, slug):
     context['course'] = course
     template_name = 'courses/details.html'
     return render(request,  template_name, context)
+
+@login_required
+def enrollment(request,slug):
+    course = get_object_or_404(Course, slug=slug)
+    enrollment, created = Enrollment.objects.get_or_create(
+        user=request.user, course=course
+    ) #este metodo retorna uma tuplaa inscrição e um booleano dizendo se criou ou não
+    if created:
+         #enrollment.active()
+        messages.success(request, 'Você foi inscrito no curso com sucesso')#import messages
+    else:
+        messages.info(request, 'Você já está inscrito neste curso')
+    return redirect('accounts:dashboard') #quando clicar em INSCREVA-SE vem para o link
+

@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Q
+from django.conf import settings
+
 
 class CourseManager(models.Manager):
 
@@ -39,3 +41,39 @@ class Course(models.Model):
 		verbose_name = 'Curso'
 		verbose_name_plural = 'Cursos' #ensinamos ao django que o plural de curso é curso
 		ordering = ['name'] #comoo django organiza ascendente a lista
+
+class Enrollment(models.Model):
+
+	STATUS_CHOICES = (
+		(0,'Pendente'),
+		(1, 'Aprovado'),
+		(2,'Cancelado'),
+	)
+
+	user=models.ForeignKey(
+		settings.AUTH_USER_MODEL,
+		verbose_name='Usuário', on_delete = models.CASCADE,
+		related_name='enrollments'
+	)
+	course = models.ForeignKey(
+		Course, verbose_name='Curso',
+		related_name='enrollments', on_delete=models.CASCADE
+	)
+	#indicar a situaçãoda inscriçãodo usuário, caso a inscrição sej amoderada
+	status = models.IntegerField('Situação',choices=STATUS_CHOICES, default=1, blank=True)
+
+	created_at = models.DateTimeField('Criado em',
+									  auto_now_add=True)  # auto now toda vez q criar um curso ele coloca automaticamente a data
+	updated_at = models.DateTimeField('Atualizado em',
+									  auto_now_add=True)  # assim que for refreshed a data entra sozinha
+
+	#mantenha as coisas do model no model, faça as logicas de negocios aqui, não nas  views
+	def activate(self): #fat model
+		self.status = 1
+		self.save()
+
+
+	class Meta:
+		verbose_name = 'Inscrição'
+		verbose_name_plural = 'Inscrições'
+		unique_together = (('user','course'),) #evita repetição de usuario em um curso
