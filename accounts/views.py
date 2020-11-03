@@ -16,6 +16,9 @@ User = get_user_model()
 def dashboard(request):
     template_name = 'accounts/dashboard.html'
     context = {}
+    #a linha abaixo deveria ser add a todas as views para q exibisse o curso q a pessoa esta matriculada
+    #para evitar repetição vamos usar custom template tags
+    #context['enrollments'] = Enrollment.objects.filter(user=request.user)
     return render(request, template_name, context)
 
 def register(request):

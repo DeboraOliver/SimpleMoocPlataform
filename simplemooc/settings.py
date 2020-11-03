@@ -69,6 +69,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            'libraries':{
+                        'courses_tags': 'courses.templatetags.courses_tags',
+                        }
         },
     },
 ]
@@ -117,7 +121,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-#USE_TZ = True
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
