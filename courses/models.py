@@ -59,7 +59,7 @@ class Enrollment(models.Model):
 		Course, verbose_name='Curso',
 		related_name='enrollments', on_delete=models.CASCADE
 	)
-	#indicar a situaçãoda inscriçãodo usuário, caso a inscrição sej amoderada
+	#indicar a situação da inscriçãodo usuário, caso a inscrição sej amoderada
 	status = models.IntegerField('Situação',choices=STATUS_CHOICES, default=1, blank=True)
 
 	created_at = models.DateTimeField('Criado em',
@@ -71,6 +71,10 @@ class Enrollment(models.Model):
 	def activate(self): #fat model
 		self.status = 1
 		self.save()
+
+	#checa se oaluno esta aprovado para este curso
+	def is_approved(self):
+		return self.status == 1
 
 
 	class Meta:

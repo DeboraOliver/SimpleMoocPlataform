@@ -7,7 +7,7 @@ Então, aproposta desta minha versão do simplemooc é escrever uma versão do m
 
 Por esta já ser a segunda vez te tento fazer este curso,eu talvez não lembre todas as mudanças e adaptações que precisam ser eitas. Desta forma, caso a sua dúvida não esteja lista abaixo <ins>dê uma olhada nos arquivos!</ins> Aqui em baixo eu vou deixar alguns dos maiores problemas que eu tive. 
 
-### Aula 56 Icons 
+### Icons (aulas 56 e 57)
 
 Os icons devem primeiramente ser chamados no base.html (linha 9), conforme o prof mostra e os arquivos devem estar na pasta static. No meu caso, não funcionava porque eu não coloquei o arquivo na pasta static/css.
 O prof usa <em>"icon-lock"</em> para chamar os icons, se não funcionar use <em>"icon fa fa-lock"</em>:
@@ -17,6 +17,8 @@ O prof usa <em>"icon-lock"</em> para chamar os icons, se não funcionar use <em>
                         <i class="icon fa fa-lock"></i>
                         Editar Senha</a>
                 </li>
+                
+Na aula 57, ele mostra que há uma outra forma de chamar os icons usando <em>"fa fa-lock"</em>.
 
 ##Outros links legais
 

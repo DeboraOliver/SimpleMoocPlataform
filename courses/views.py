@@ -53,3 +53,37 @@ def enrollment(request,slug):
         messages.info(request, 'Você já está inscrito neste curso')
     return redirect('accounts:dashboard') #quando clicar em INSCREVA-SE vem para o link
 
+@login_required
+def undo_enrollment(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    enrollment = get_object_or_404(
+        Enrollment, user=request.user, course=course
+    )
+    if request.method =='POST':
+        enrollment.delete()
+        messages.success(request, 'Sua inscrição foi cancelada com sucesso')
+        return redirect('accounts:dashboard')
+    template = 'courses/undo_enrollment.html'
+    context = {
+        'enrollment': enrollment,
+        'course': course
+    }
+    return render(request, template, context)
+
+@login_required
+def announcements(request, slug):
+    #vamos verificar se o aluno está inscrito no curso
+    course = get_object_or_404(Course, slug=slug)
+    if not request.user.is_staff:
+        enrollment = get_object_or_404(
+            Enrollment, user=request.user, course=course
+        )
+        #se ele  não estiver inscrito vamos para a segunda parte:
+        if not enrollment.is_approved():
+            messages.error(request, 'Sua inscrição está pendente')
+            return redirect('accounts:dashboard')
+    template = 'courses/announcements.html'
+    context = {
+        'course': course
+    }
+    return render(request, template, context)
