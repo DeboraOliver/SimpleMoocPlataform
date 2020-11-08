@@ -81,3 +81,34 @@ class Enrollment(models.Model):
 		verbose_name = 'Inscrição'
 		verbose_name_plural = 'Inscrições'
 		unique_together = (('user','course'),) #evita repetição de usuario em um curso
+
+class Announcement(models.Model):
+	course = models.ForeignKey(Course,
+							   verbose_name='Curso', related_name='announcements', on_delete=models.CASCADE
+							   )
+	title= models.CharField('Titulo', max_length=100)
+	content = models.TextField('Conteúdo')
+	created_at = models.DateTimeField('Criado em',auto_now_add=True)  # auto now toda vez q criar um curso ele coloca automaticamente a data
+	updated_at = models.DateTimeField('Atualizado em',auto_now_add=True)  # assim que for refreshed a data entra sozinha
+
+	def __str__(self):
+		return self.title
+
+	class Meta:
+		verbose_name = 'Anúncio'
+		verbose_name_plural = 'Anúncios'
+		ordering = ['-created_at'] #sempre omaisatual primeiro
+
+class Comment(models.Model):
+	announcement = models.ForeignKey(Announcement, verbose_name='Anúncio', related_name='comments' ,on_delete= models.CASCADE)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='usuário', on_delete= models.CASCADE)
+	comment = models.TextField('Comentário')
+	created_at = models.DateTimeField('Criado em',
+									  auto_now_add=True)  # auto now toda vez q criar um curso ele coloca automaticamente a data
+	updated_at = models.DateTimeField('Atualizado em',
+									  auto_now_add=True)  # assim que for refreshed a data entra sozinha
+
+	class Meta:
+		verbose_name='Comentário'
+		verbose_name_plural = 'Comentários'
+		ordering =['comment']

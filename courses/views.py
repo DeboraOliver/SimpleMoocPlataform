@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import  login_required
-from .models import Course,  Enrollment
-from .forms import ContactCourse #o . indica q é nesta msm pasta
+from .models import Course,  Enrollment, Announcement
+from .forms import ContactCourse, CommentForm #o . indica q é nesta msm pasta
 from django.contrib import messages
 
 def index(request):
@@ -84,6 +84,36 @@ def announcements(request, slug):
             return redirect('accounts:dashboard')
     template = 'courses/announcements.html'
     context = {
-        'course': course
+        'course': course,
+        'announcements': course.announcements.all() #todos os anuncios do curso estão nesta variável
+    }
+    return render(request, template, context)
+
+@login_required
+def show_announcement(request, slug, pk):
+    course = get_object_or_404(Course, slug=slug)
+    if not request.user.is_staff:
+        enrollment = get_object_or_404(
+            Enrollment, user=request.user, course=course
+        )
+        # se ele  não estiver inscrito vamos para a segunda parte:
+        if not enrollment.is_approved():
+            messages.error(request, 'Sua inscrição está pendente')
+            return redirect('accounts:dashboard')
+    announcement = get_object_or_404(course.announcements.all(), pk=pk)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False) #ele vai retornar o obj mas não vai salvar por do cOMMIT=False
+        comment.user = request.user
+        comment.announcement = announcement
+        comment.save()
+        form = CommentForm()
+        messages.success(request, 'Seu comentário foi enviado com sucesso')
+    template = 'courses/show_announcement.html'
+    #para evitar que ousuario manipule a url vamos especificar o anuncio do curso
+    context = {
+        'course': course,
+        'announcement': announcement,
+        'form': form,
     }
     return render(request, template, context)
