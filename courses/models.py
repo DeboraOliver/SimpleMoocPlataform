@@ -136,7 +136,7 @@ models.signals.post_save.connect(
 
 
 class Lesson(models.Model):
-	nome = models.CharField('Nome', max_length=100)
+	name = models.CharField('Nome', max_length=100)
 	description = models.TextField('Descrição', blank=True)
 	number = models.IntegerField('Número (ordem)', blank=True, default=0) #apenas p organizar nobackend
 	release_date = models.DateField('Data de liberação', blank=True,null=True) #quando esta aula esta disponível
