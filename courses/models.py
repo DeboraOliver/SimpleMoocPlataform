@@ -133,3 +133,47 @@ models.signals.post_save.connect(
     post_save_announcement, sender=Announcement,
     dispatch_uid='post_save_announcement'
 )#este ultimo argumento evita que cadastre uma função no sinal muitas vezes
+
+
+class Lesson(models.Model):
+	nome = models.CharField('Nome', max_length=100)
+	description = models.TextField('Descrição', blank=True)
+	number = models.IntegerField('Número (ordem)', blank=True, default=0) #apenas p organizar nobackend
+	release_date = models.DateField('Data de liberação', blank=True,null=True) #quando esta aula esta disponível
+	#a ligação das aulas com o curso
+	course = models.ForeignKey(Course, verbose_name='Curso',
+							   on_delete=models.CASCADE, related_name='lessons')
+	created_at = models.DateTimeField('Criado em',
+									  auto_now_add=True)  # auto now toda vez q criar um curso ele coloca automaticamente a data
+	updated_at = models.DateTimeField('Atualizado em',
+									  auto_now_add=True)  # assim que for refreshed a data entra sozinha
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = 'Aula'
+		verbose_name_plural = 'Aulas'
+		ordering = ['number']
+
+#agora o conteudo/material das aulas
+class Material(models.Model):
+	name = models.CharField('Nome', max_length=100)
+	#para colocar arquivos de multimedia, apenas o adm q cadastrará
+	embedded = models.TextField('Vídeo embedded', blank=True)
+	#para arquivos:
+	file = models.FileField(upload_to='lessons/materials',blank=True,null=True) #o arquivo está publico
+	#agora a ligação com a lição:
+	lesson = models.ForeignKey(Lesson, related_name='materials', verbose_name='aula',
+		on_delete=models.CASCADE)
+
+	def is_embedded(self):
+		return bool(self.embedded)
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = 'Material'
+		verbose_name_plural = 'Materiais'
+		#ordering = ['number']
