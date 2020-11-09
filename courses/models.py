@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.conf import settings
 
+from core.mail import send_mail_template
 
 class CourseManager(models.Manager):
 
@@ -111,4 +112,24 @@ class Comment(models.Model):
 	class Meta:
 		verbose_name='Comentário'
 		verbose_name_plural = 'Comentários'
-		ordering =['comment']
+		ordering =['created_at']
+
+def post_save_announcement(instance, created, **kwargs):
+	if created: #apenas se for criado
+		subject = instance.title
+		context = {
+			'announcement': instance,
+		}
+		template_name = 'courses/announcement_mail.html'
+		#não queremos um unico email para todos mostrando que foi copiado então:
+		enrollments = Enrollment.objects.filter(course=instance.course,
+												status=1
+												)
+		for enrollment in enrollments:
+			recipient_list = [enrollment.user.email]
+			send_mail_template(subject, template_name, context, recipient_list)
+#vamos passar ao django a função que quero q seja executado
+models.signals.post_save.connect(
+    post_save_announcement, sender=Announcement,
+    dispatch_uid='post_save_announcement'
+)#este ultimo argumento evita que cadastre uma função no sinal muitas vezes
