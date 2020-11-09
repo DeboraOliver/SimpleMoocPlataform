@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.conf import settings
+from django.utils import timezone
 
 from core.mail import send_mail_template
 
@@ -37,6 +38,11 @@ class Course(models.Model):
 	#@models.permalink
 	def get_absolute_url(self):
 		return f"/cursos/{self.slug}/"
+
+	#consulta no banco as lições que estão liberadas até esta data
+	def release_lessons(self):
+		today = timezone.now().date()
+		return self.lessons.filter(release_date__gte=today) #gte maior ou igual
 
 	class Meta: #interfere no django admin
 		verbose_name = 'Curso'
@@ -150,6 +156,13 @@ class Lesson(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	#verifica se a lissão já está disponível
+	def is_available(self):
+		if self.release_date:
+			today = timezone.now().date()
+			return self.release_date >= today
+		return False
 
 	class Meta:
 		verbose_name = 'Aula'

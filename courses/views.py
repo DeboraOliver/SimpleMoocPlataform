@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import  login_required
-from .models import Course,  Enrollment, Announcement
+from .models import Course,  Enrollment, Announcement, Lesson, Material
 from .forms import ContactCourse, CommentForm #o . indica q é nesta msm pasta
 from django.contrib import messages
+from .decorators import enrollment_required
 
 def index(request):
     courses = Course.objects.all()
@@ -71,17 +72,20 @@ def undo_enrollment(request, slug):
     return render(request, template, context)
 
 @login_required
+@enrollment_required
 def announcements(request, slug):
+    course = request.course
+    #O CODIGO ABAIXO NÃO É MAIS UTIL PQ VMS USAR DECORATOR
     #vamos verificar se o aluno está inscrito no curso
-    course = get_object_or_404(Course, slug=slug)
-    if not request.user.is_staff:
-        enrollment = get_object_or_404(
-            Enrollment, user=request.user, course=course
-        )
-        #se ele  não estiver inscrito vamos para a segunda parte:
-        if not enrollment.is_approved():
-            messages.error(request, 'Sua inscrição está pendente')
-            return redirect('accounts:dashboard')
+    # course = get_object_or_404(Course, slug=slug)
+    # if not request.user.is_staff:
+    #     enrollment = get_object_or_404(
+    #         Enrollment, user=request.user, course=course
+    #     )
+    #     #se ele  não estiver inscrito vamos para a segunda parte:
+    #     if not enrollment.is_approved():
+    #         messages.error(request, 'Sua inscrição está pendente')
+    #         return redirect('accounts:dashboard')
     template = 'courses/announcements.html'
     context = {
         'course': course,
@@ -90,16 +94,19 @@ def announcements(request, slug):
     return render(request, template, context)
 
 @login_required
+@enrollment_required
 def show_announcement(request, slug, pk):
-    course = get_object_or_404(Course, slug=slug)
-    if not request.user.is_staff:
-        enrollment = get_object_or_404(
-            Enrollment, user=request.user, course=course
-        )
-        # se ele  não estiver inscrito vamos para a segunda parte:
-        if not enrollment.is_approved():
-            messages.error(request, 'Sua inscrição está pendente')
-            return redirect('accounts:dashboard')
+    course = request.course
+    # O CODIGO ABAIXO NÃO É MAIS UTIL PQ VMS USAR DECORATOR
+    # course = get_object_or_404(Course, slug=slug)
+    # if not request.user.is_staff:
+    #     enrollment = get_object_or_404(
+    #         Enrollment, user=request.user, course=course
+    #     )
+    #     # se ele  não estiver inscrito vamos para a segunda parte:
+    #     if not enrollment.is_approved():
+    #         messages.error(request, 'Sua inscrição está pendente')
+    #         return redirect('accounts:dashboard')
     announcement = get_object_or_404(course.announcements.all(), pk=pk)
     form = CommentForm(request.POST or None)
     if form.is_valid():
@@ -115,5 +122,35 @@ def show_announcement(request, slug, pk):
         'course': course,
         'announcement': announcement,
         'form': form,
+    }
+    return render(request, template, context)
+
+@login_required
+@enrollment_required
+def lessons(request, slug):
+    course=request.course
+    template = 'courses/lessons.html'
+    lessons = course.release_lessons()
+    if request.user.is_staff:
+        lessons = course.lessons.all()
+    context = {
+        'course' : course,
+        'lessons' : lessons
+    }
+    return render(request, template, context)
+
+@login_required
+@enrollment_required
+def lesson(request, slug, pk):
+    course = request.course
+    lesson = get_object_or_404(Lesson, pk=pk, course=course)#o user pode manipular isso
+    #vms deixar mais seguro:
+    if not request.user.is_staff and not lesson.is_available():
+        messages.error(request, 'Esta aula não está disponível')
+        return redirect('courses:lessons', slug=course.slug)
+    template = 'courses/lesson.html'
+    context = {
+        'course': course,
+        'lesson': lesson
     }
     return render(request, template, context)

@@ -11,5 +11,7 @@ urlpatterns = [
     path('cursos/<slug:slug>/cancelar-inscricao/', views.undo_enrollment, name='undo_enrollment'),
     path('cursos/<slug:slug>/anuncios/', views.announcements, name='announcements'),
     path('cursos/<slug:slug>/anuncios/<int:pk>', views.show_announcement, name='show_announcement'),
+    path('cursos/<slug:slug>/aulas/', views.lessons, name='lessons'),
+    path('cursos/<slug:slug>/aulas/<int:pk>', views.lesson, name='lesson'),
 
 ]
