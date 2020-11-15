@@ -7,6 +7,20 @@ Então, a proposta desta minha versão do simplemooc é escrever uma versão  AT
 
 Por esta já ser a segunda vez te tento fazer este curso, eu talvez não lembre todas as mudanças e adaptações que precisam ser eitas. Desta forma, caso a sua dúvida não esteja lista abaixo <ins>dê uma olhada nos arquivos!</ins> Aqui em baixo eu vou deixar alguns dos maiores problemas que eu tive. 
 
+### Comandos básicos
+
+Nas versões mais recentes do Django não é preciso o comando syncdb. Basta usar:
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+E, depois: 
+
+```
+python manage.py runserver
+```
+
 ### Erro no uso de ForeignKey no models
 
 Fique atento e lembre se de sempre incluir o <em>on_delete</em> quando for usar a ForeignKey. Este "on_delete" diz ao django o que fazer caso a foreignkey seja apaga. Uma das vezes que o prof chama as foreignKeys é na construção do course.models:

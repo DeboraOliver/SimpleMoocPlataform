@@ -13,7 +13,7 @@
 {% block dashboard_content %}
 <div class="well">
     <h2><a href="{% url 'courses:material' course.slug material.pk %}">{{ material }}</a></h2>
-    {{ material.embedded|safe }}
+    {{ material.embedded|safe }} <!--para dizer que é seguro -->
     <p>
         <a href="{% url 'courses:lesson' course.slug lesson.pk %}">Voltar</a>
     </p>

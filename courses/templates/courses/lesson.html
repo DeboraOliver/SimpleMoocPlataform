@@ -25,6 +25,7 @@
             </thead>
             <tbody>
                 {% for material in lesson.materials.all %}
+                <!-- Para a tabela listrada:  -->
                 <tr class="{% cycle '' 'pure-table-odd' %}">
                     <td>
                         {{ material }}
@@ -36,6 +37,7 @@
                             Acessar
                         </a>
                         {% else %}
+                        <!-- o target mana abrir uma nova pagina -->
                         <a target="_blank" href="{{ material.file.url }}">
                             <i class"fa fa-download"></i>
                             Baixar
