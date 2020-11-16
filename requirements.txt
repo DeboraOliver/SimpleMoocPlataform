@@ -1,5 +1,7 @@
 asgiref==3.2.10
 Django==3.0.5
+django-smtp-ssl==1.0
+model-bakery==1.2.1
 Pillow==8.0.1
 pkg-resources==0.0.0
 pytz==2020.1

@@ -20,7 +20,15 @@ E, depois:
 ```
 python manage.py runserver
 ```
+Para chamar um módulo de outro arquivo não precisa de tudo isso:
 
+````
+from simplemooc.courses.models import Course
+````
+Basta:
+````
+from courses.models import Course
+````
 ### Erro no uso de ForeignKey no models
 
 Fique atento e lembre se de sempre incluir o <em>on_delete</em> quando for usar a ForeignKey. Este "on_delete" diz ao django o que fazer caso a foreignkey seja apaga. Uma das vezes que o prof chama as foreignKeys é na construção do course.models:
@@ -65,6 +73,44 @@ Na documentação <em>(troca-s os pontos por underline)</em>:
             {% endwith %}
         </a> 
 ```` 
+
+### Testando a aplicação 
+
+O comando
+````
+from django.core.urlresolvers import reverse
+````
+Foi removido na versão 2.0 do django e movido para urls. Desta forma, use o seguinte comando:
+````
+from django.urls import reverse
+````
+### Testando models com model-mommy (aula 74)
+Por respeito as mulheres e para evitar esteriótipos, este pacote foi renomeado. Logo, ao invés de usar:
+
+````
+from model_mommy import mommy
+
+class CourseManagerTestCase(TestCase):
+
+    def setUp(self):
+        self.courses_django = mommy.make(...)
+````
+Use isto:
+````
+from model_bakery import baker
+
+class CourseManagerTestCase(TestCase):
+
+    def setUp(self):
+        self.courses_django = baker.make(...)
+````
+Aliás, não esqueça de instalar de forma correta:
+````
+pip install model_bakery
+````
+
+Leia mais sobre esta brilhante (e respeitosa e digna) mudança <a href = "https://pypi.org/project/model-mommy/">AQUI</a>. Conheça mais sobre o projeto model-bakery <a href = "https://pypi.org/project/model-bakery/">AQUI</a>
+
 ## Outros links legais
 
 Alguns links que o prof menciona e que talvez, você precise em projetos futuros:
