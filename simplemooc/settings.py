@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.contrib.messages import constants as messages
+import django_on_heroku
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +28,7 @@ SECRET_KEY = 'e25$i2m@h4+fiv!ichgz5cm3_e=1*hpdq+m896fl#_ry!l_a9m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 
 # Application definition: The CoreConfig class is in the core/apps.py. Now Django knows to include the polls app.
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -168,6 +171,7 @@ MESSAGE_TAGS = {
 
 import dj_database_url
 
+
 DATABASES = {
     'default':  dj_database_url.config(),
 }
@@ -176,13 +180,15 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://simplemooc2020.herokuapp.com/']
 #simplemooc2020.herokuapp.com
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 STATIC_URL = '/static/'
 
 try:
     from simplemooc.local_settings import *
 except ImportError:
     pass
+
+django_on_heroku.settings(locals())
