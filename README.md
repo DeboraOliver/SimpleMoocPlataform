@@ -111,6 +111,10 @@ pip install model_bakery
 
 Leia mais sobre esta brilhante (e respeitosa e digna) mudança <a href = "https://pypi.org/project/model-mommy/">AQUI</a>. Conheça mais sobre o projeto model-bakery <a href = "https://pypi.org/project/model-bakery/">AQUI</a>
 
+### Deploying (aula 73)
+
+Anteriormente conhecido como Heroku Toolbelt, o Heroku Command Line Interface (CLI) é uma ferramenta para criar e gerenciar aplicativos Heroku a partir da linha de comando/shell de vários sistemas operacionais, incluindo o Linux.
+
 ## Outros links legais
 
 Alguns links que o prof menciona e que talvez, você precise em projetos futuros:

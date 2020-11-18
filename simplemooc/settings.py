@@ -163,3 +163,26 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# Heroku settings
+
+import dj_database_url
+
+DATABASES = {
+    'default':  dj_database_url.config(),
+}
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+#simplemooc2020.herokuapp.com
+
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+try:
+    from simplemooc.local_settings import *
+except ImportError:
+    pass
