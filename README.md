@@ -113,7 +113,16 @@ Leia mais sobre esta brilhante (e respeitosa e digna) mudança <a href = "https:
 
 ### Deploying (aula 73)
 
-Anteriormente conhecido como Heroku Toolbelt, o Heroku Command Line Interface (CLI) é uma ferramenta para criar e gerenciar aplicativos Heroku a partir da linha de comando/shell de vários sistemas operacionais, incluindo o Linux.
+Anteriormente conhecido como Heroku Toolbelt, o Heroku Command Line Interface (CLI) é uma ferramenta para criar e gerenciar aplicativos Heroku a partir da linha de comando/shell de vários sistemas operacionais, incluindo o Linux. 
+
+Vou citar aqui alguns problemas que podem acontecer <em>NO LINUX</em> ao longo desta aula e  como resolve-los:
+
+<ul>
+<li>bash: heroku: command not found - Se esta mensagem aparecer depois de você ter instala o heroku CLI via snap, então consulte está pagina <a href = "https://stackoverflow.com/questions/45014839/installing-heroku-cli-on-archlinux-using-snapd-command-not-found">AQUI</a></li>
+<li>pkg-resources == 0.0.0 - Se este pacote estiver na sua lista do <em>requirements.txt</em> apague-o usando o pip uninstall. Isto é um bug! Leia mais <a href = "https://stackoverflow.com/questions/38992194/why-does-pip-freeze-list-pkg-resources-0-0-0">AQUI</a>  </li>
+</ul>
+
+### Deploying (aula 74)
 
 ## Outros links legais
 
