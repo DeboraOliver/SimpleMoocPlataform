@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e25$i2m@h4+fiv!ichgz5cm3_e=1*hpdq+m896fl#_ry!l_a9m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #ALLOWED_HOSTS = []
 
 
@@ -64,7 +64,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
+        'APP_DIRS': True, #tells whether the engine should look for templates inside installed applications
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -183,12 +183,12 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['https://simplemooc2020.herokuapp.com/']
 #simplemooc2020.herokuapp.com
 
-STATIC_ROOT = STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 STATIC_URL = '/static/'
 
 try:
     from simplemooc.local_settings import *
 except ImportError:
-    pass
+    raise Exception("A local_settings.py file is required to run this project")
 
 django_on_heroku.settings(locals())

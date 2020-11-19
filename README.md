@@ -124,6 +124,15 @@ Vou citar aqui alguns problemas que podem acontecer <em>NO LINUX</em> ao longo d
 
 ### Deploying (aula 74)
 
+Pequenos ajustes necessários:
+
+|Django 1.6|Django 3.0|
+|----------|----------|
+|TEMPLATE_DEBUG| Removido no Django 1.10|
+
+
+
+
 ## Outros links legais
 
 Alguns links que o prof menciona e que talvez, você precise em projetos futuros:
