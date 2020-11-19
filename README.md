@@ -1,7 +1,7 @@
-#SimpleMooc
+# SimpleMooc
 
-Este projeto foi desenvolvido seguindo as aulas da Udemy do prof Gileno. O curso foi desenvolvido em 2014 usando o Django 1.6, o que torna bem frustrante para qualquer aluno em 2020 que tenta seguir as explicações e os passo-a-passo.
-Então, a proposta desta minha versão do simplemooc é escrever uma versão  ATUALIZADA do mesmo projeto para o Django 3.0.5. Espero que te ajude!
+Este projeto éuma atualização do curso Python desenvolvido pelo prof Gileno. O curso foi desenvolvido em 2014 usando Python 3, porém Django 1.6, o que torna desafiador para qualquer aluno em 2020 que tenta seguir as explicações e os passo-a-passo.
+Então, a proposta desta versão do simplemooc é uma versão  ATUALIZADA do mesmo projeto para o Django 3.0.5, Python 3.7. Espero que te ajude!
 
 ##O que mudou do Django 1.6 para o Django 3.0.5
 
