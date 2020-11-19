@@ -187,8 +187,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 STATIC_URL = '/static/'
 
 try:
-    from simplemooc.local_settings import *
+    from local_settings import *
 except ImportError:
-    raise Exception("A local_settings.py file is required to run this project")
+    pass
+    #raise Exception("A local_settings.py file is required to run this project")
 
 django_on_heroku.settings(locals())
