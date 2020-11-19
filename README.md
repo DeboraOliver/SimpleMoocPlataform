@@ -3,7 +3,7 @@
 Este projeto éuma atualização do curso Python desenvolvido pelo prof Gileno. O curso foi desenvolvido em 2014 usando Python 3, porém Django 1.6, o que torna desafiador para qualquer aluno em 2020 que tenta seguir as explicações e os passo-a-passo.
 Então, a proposta desta versão do simplemooc é uma versão  ATUALIZADA do mesmo projeto para o Django 3.0.5, Python 3.7. Espero que te ajude!
 
-##O que mudou do Django 1.6 para o Django 3.0.5
+## O que mudou do Django 1.6 para o Django 3.0.5
 
 Por esta já ser a segunda vez te tento fazer este curso, eu talvez não lembre todas as mudanças e adaptações que precisam ser eitas. Desta forma, caso a sua dúvida não esteja lista abaixo <ins>dê uma olhada nos arquivos!</ins> Aqui em baixo eu vou deixar alguns dos maiores problemas que eu tive. 
 
